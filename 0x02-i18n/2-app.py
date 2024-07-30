@@ -7,7 +7,7 @@ A basic Flask app that create a single / route and an index.html template that s
 it initializes Babel for internationalization.
 """
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_babel import Babel
 
 class Config:

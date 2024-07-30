@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-3-app.py
+4-app.py
 
 A basic Flask app that create a single / route and an index.html template that simply outputs “Welcome to Holberton” as page title and “Hello world” as header.
 it initializes Babel for internationalization.
@@ -25,10 +25,16 @@ babel = Babel(app)
 @babel.localeselector
 def get_locale() -> str:
     """
-    Finds the best match with our supported languages.
+    Finds the best match with our supported languages or use the
+    'locale' parameter from the request if present and valid.
 
-    Return: The best matched language.
+    :return: best matched language or the language from the 'locale' parameter.
     """
+
+    locale = request.args.get('locale')
+    if locale in app.config['LANGUAGES']:
+        return locale
+
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 @app.route('/')
@@ -36,9 +42,9 @@ def index() -> str:
     """
     Render index.html template.
 
-    Return: The rendered 3-index.html template.
+    Return: The rendered 4-index.html template.
     """
-    return render_template('3-index.html', home_title=_("home_title"), home_header=_("home_header")), 200
+    return render_template('4-index.html', home_title=_("home_title"), home_header=_("home_header")), 200
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
